@@ -25,3 +25,26 @@ mon.vif=this.vif;
 gen.sconxt=sconxt;
 sco.sconxt=sconxt;
 endfunction
+
+  task pre_test();
+drv.reset();
+endtask
+task test();
+fork
+gen.main();
+drv.main();
+mon.main();
+sco.main();
+join_any
+endtask
+task post_test();
+wait(gen.gen_ended.triggered);
+$display("ALL TRANSACTIONS ARE COMPLETED");
+$finish;
+endtask
+task run();
+pre_test();
+test();
+post_test();
+endtask
+endclass
