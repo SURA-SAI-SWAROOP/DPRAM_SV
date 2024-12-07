@@ -38,6 +38,7 @@ class driver;
     
   task read();
     @(posedge vif.clk);
+    vif.data_in<=tr.data_in;
     vif.reset<=1'b0;
     vif.we<=tr.we;
     vif.re<=tr.re;
@@ -66,6 +67,7 @@ class driver;
       end
         
       else begin
+        vif.data_in<=tr.data_in;
         $display("[DRV]:: NO WRITE OR READ OPERATION");
       end
       
